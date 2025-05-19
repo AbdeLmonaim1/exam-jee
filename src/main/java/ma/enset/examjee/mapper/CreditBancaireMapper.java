@@ -3,7 +3,9 @@ package ma.enset.examjee.mapper;
 import ma.enset.examjee.dtos.*;
 import ma.enset.examjee.entities.*;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CreditBancaireMapper {
 
     public ClientDTO fromClient(Client client) {
