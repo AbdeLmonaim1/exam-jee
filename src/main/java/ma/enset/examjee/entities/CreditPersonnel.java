@@ -1,8 +1,16 @@
 package ma.enset.examjee.entities;
 
-import lombok.Data;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import lombok.*;
 
-@Data
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
+@DiscriminatorValue("CPer")
 public class CreditPersonnel extends Credit {
     private String motif;
 }

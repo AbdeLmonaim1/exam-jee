@@ -16,6 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "TYPE", discriminatorType = DiscriminatorType.STRING, length = 4)
 public class Credit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
