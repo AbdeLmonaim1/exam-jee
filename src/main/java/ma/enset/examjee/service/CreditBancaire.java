@@ -6,6 +6,7 @@ import ma.enset.examjee.entities.Credit;
 import ma.enset.examjee.entities.Remboursement;
 import ma.enset.examjee.exceptions.ClientNotFoundException;
 import ma.enset.examjee.exceptions.CreditNotFoundException;
+import ma.enset.examjee.exceptions.RemboursementNotFoundException;
 
 import java.util.List;
 
@@ -39,10 +40,12 @@ public interface CreditBancaire {
 
 
     RemboursementDTO saveRemboursement(RemboursementDTO remboursementDTO);
-    RemboursementDTO getRemboursementById(Long id);
+    RemboursementDTO getRemboursementById(Long id) throws RemboursementNotFoundException;
     List<RemboursementDTO> getAllRemboursements();
     List<RemboursementDTO> getRemboursementsByCreditId(Long creditId);
-    RemboursementDTO updateRemboursement(Long id, RemboursementDTO updatedRemboursementDTO);
+
+    RemboursementDTO updateRemboursement(RemboursementDTO updatedRemboursementDTO);
+
     void deleteRemboursement(Long id);
 
 

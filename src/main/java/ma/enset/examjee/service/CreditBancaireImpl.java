@@ -6,6 +6,7 @@ import ma.enset.examjee.entities.*;
 import ma.enset.examjee.enums.StatutCredit;
 import ma.enset.examjee.exceptions.ClientNotFoundException;
 import ma.enset.examjee.exceptions.CreditNotFoundException;
+import ma.enset.examjee.exceptions.RemboursementNotFoundException;
 import ma.enset.examjee.mapper.CreditBancaireMapper;
 import ma.enset.examjee.repositories.ClientRepository;
 import ma.enset.examjee.repositories.CreditRepository;
@@ -164,31 +165,46 @@ public class CreditBancaireImpl implements CreditBancaire {
 
     @Override
     public RemboursementDTO saveRemboursement(RemboursementDTO remboursementDTO) {
-        return null;
+        Remboursement remboursement = mapper.fromRemboursementDTO(remboursementDTO);
+        Remboursement savedRemboursement = remboursementRepository.save(remboursement);
+        return mapper.fromRemboursement(savedRemboursement);
     }
 
     @Override
-    public RemboursementDTO getRemboursementById(Long id) {
-        return null;
+    public RemboursementDTO getRemboursementById(Long id) throws RemboursementNotFoundException {
+        Remboursement remboursement = remboursementRepository.findById(id)
+                .orElseThrow(() -> new RemboursementNotFoundException("Remboursement not found"));
+        return mapper.fromRemboursement(remboursement);
     }
 
     @Override
     public List<RemboursementDTO> getAllRemboursements() {
-        return List.of();
+        List<Remboursement> remboursements = remboursementRepository.findAll();
+        return remboursements.stream()
+                .map(mapper::fromRemboursement)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<RemboursementDTO> getRemboursementsByCreditId(Long creditId) {
-        return List.of();
+        List<Remboursement> remboursements = remboursementRepository.findByCreditId(creditId);
+        return remboursements.stream()
+                .map(mapper::fromRemboursement)
+                .collect(Collectors.toList());
     }
 
+
+
     @Override
-    public RemboursementDTO updateRemboursement(Long id, RemboursementDTO updatedRemboursementDTO) {
-        return null;
+    public RemboursementDTO updateRemboursement(RemboursementDTO updatedRemboursementDTO) {
+        Remboursement updatedRemboursement = remboursementRepository.save(mapper.fromRemboursementDTO(updatedRemboursementDTO));
+        return mapper.fromRemboursement(updatedRemboursement);
     }
 
     @Override
     public void deleteRemboursement(Long id) {
-
+        Remboursement remboursement = remboursementRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Remboursement not found"));
+        remboursementRepository.delete(remboursement);
     }
 }

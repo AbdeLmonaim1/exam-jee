@@ -23,7 +23,7 @@ public class ExamJeeApplication {
     public static void main(String[] args) {
         SpringApplication.run(ExamJeeApplication.class, args);
     }
-    @Bean
+//    @Bean
     CommandLineRunner initData(ClientRepository clientRepo, CreditRepository creditRepo, RemboursementRepository rembRepo) {
         return args -> {
 
